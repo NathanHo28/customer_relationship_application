@@ -61,6 +61,16 @@ class CRM
 		@rolodex.add_contact(contact)
 	end
 
+	def modify_contact
+		puts "Type the contact id number you want to modify I.E. 1xxx: "
+		id = gets.chomp.to_i
+		@rolodex.find(id)
+		puts "What do you want to change about the contact?"
+		puts "I.E.: first name, last name, email or note."
+		change = gets.chomp.downcase	
+		@rolodex.modify_contact(change)
+	end
+
 	def display_all_contacts
 		@rolodex.contacts.each do |contact|
 			puts "#{contact.first_name}, #{contact.last_name}, #{contact.email} (#{contact.id})"
@@ -69,7 +79,7 @@ class CRM
 
 	def display_one_contact
 		puts "Type the id (ie. 1xxx) of the contact that you would like to display: "
-		id_display = gets.chomp.to_i
+		id = gets.chomp.to_i
 		@rolodex.contacts.each do |contact|
 			if contact.id == id_display
 				puts " "
@@ -82,23 +92,23 @@ class CRM
 		end
 	end
 
+	def display_attribute
+		puts "Please type the id number you want to display (ie. 1xxx): "
+		id = gets.chomp.to_i
+		@rolodex.find(id)
+		puts "What contact attribute would you like to display?"
+		puts "(i.e first name, last name, email or note)"
+		display = gets.chomp.downcase
+		@rolodex.display_attribute(display)
+		
+	end
+
 	def delete_contact
 		puts "Type the contact id number you want to delete I.E: 1xxx: "
 		id_delete = gets.chomp.to_i
 		@rolodex.delete_contact(id_delete)
 		puts "Contact #{id_delete}was deleted"
 	end
-
-	def modify_contact
-		puts "Type the contact id number you want to modify I.E. 1xxx: "
-		id = gets.chomp.to_i
-		@rolodex.find(id)
-		puts "What do you want to change about the contact?"
-		puts "I.E.: first name, last name, email or note."
-		change = gets.chomp.downcase
-		@rolodex.modify_contact(change)
-	end
-
 end
 
 crm = CRM.new("Bitmaker labs CRM")

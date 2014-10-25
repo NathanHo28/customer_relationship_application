@@ -42,6 +42,20 @@ attr_reader :contacts
 		end
 	end
 
-		
+	def display_attribute(display)
+		case display
+		when "first name"
+			puts "First Name: #{@found.first_name}"
+			#@found represents the now isolated objected within the array.
+		when "last name"
+			puts "Last Name: #{@found.last_name}"
+		when "email"
+			puts "Email: #{@found.email}"
+		when "note"
+			puts "Notes: #{@found.note}"
+		else
+			puts "Error use a specified command"
+		end
+	end
 end
 
