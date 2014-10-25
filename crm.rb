@@ -67,6 +67,21 @@ class CRM
 		end
 	end
 
+	def display_one_contact
+		puts "Type the id (ie. 1xxx) of the contact that you would like to display: "
+		id_display = gets.chomp.to_i
+		@rolodex.contacts.each do |contact|
+			if contact.id == id_display
+				puts " "
+				puts "CONTACT INFO: "
+				puts "Name: #{contact.last_name.upcase}, #{contact.first_name}"
+				puts "Email: #{contact.email}"
+				puts "Notes: #{contact.note}"
+				puts " "
+			end
+		end
+	end
+
 	def delete_contact
 		puts "Type the contact id number you want to delete I.E: 1xxx: "
 		id_delete = gets.chomp.to_i
