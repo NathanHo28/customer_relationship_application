@@ -81,7 +81,7 @@ class CRM
 		puts "Type the id (ie. 1xxx) of the contact that you would like to display: "
 		id = gets.chomp.to_i
 		@rolodex.contacts.each do |contact|
-			if contact.id == id_display
+			if contact.id == id
 				puts " "
 				puts "CONTACT INFO: "
 				puts "Name: #{contact.last_name.upcase}, #{contact.first_name}"
