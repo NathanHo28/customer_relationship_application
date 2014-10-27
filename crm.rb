@@ -49,19 +49,47 @@ class CRM
 		end
 	end
 
+	def prompt
+		line = gets
+		add_contact if (line.nil? || line.strip.empty?)
+		line.strip
+		puts "Error: A value is required for all fields. "
+	end
+
 	def add_contact
-		puts "\e[H\e[2J"
-		print "First name: "
-		first_name = gets.chomp.capitalize
-		print "Last name: "
-		last_name = gets.chomp.capitalize
-		print "Email: "
-		email = gets.chomp
-		print "Note: "
-		note = gets.chomp
+		# puts "\e[H\e[2J"
+		# print "First name: "
+		# first_name = gets.chomp.capitalize
+		# print "Last name: "
+		# last_name = gets.chomp.capitalize
+		# print "Email: "
+		# email = gets.chomp
+		# print "Note: "
+		# note = gets.chomp
+
+		first_name = value_checker("first name")
+		last_name = value_checker("last name")
+		email = value_checker("email")
+		note = value_checker("note")
+
+		puts "Contact created for: #{first_name} #{last_name}."
 
 		contact = Contact.new(first_name, last_name, email, note)
 		@rolodex.add_contact(contact)
+	end
+
+	def blank(input)
+		!(input.nil? || input.empty?)
+	end
+
+	def value_checker(string)
+		print "#{string}: "
+		input = gets.chomp
+		until blank(input)
+			puts "Error: A value is required for all fields. "
+			input = gets.chomp.strip
+		end
+		input
 	end
 
 	def modify_contact
