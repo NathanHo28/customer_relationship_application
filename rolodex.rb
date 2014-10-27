@@ -9,17 +9,14 @@ attr_reader :contacts
 	end
 
 	def find(id) #search method to be reused in several other methods.
-		@found = @contacts.select{|contact| contact.id == id }.first
+		# .select returns specific contact as a new array and .first returns it as an object.
+		@found = @contacts.select{|contact| contact.id == id }.first 
 	end
 
 	def add_contact(contact)
 		contact.id = @@index #add the unique identifier onto the contact
 		@@index += 1
 		@contacts << contact
-	end
-
-	def delete_contact(id_delete)
-		@contacts.delete_if{|contact| contact.id == id_delete}
 	end
 
 	def modify_contact(change)
@@ -41,6 +38,11 @@ attr_reader :contacts
 			puts "Error use a specified command"
 		end
 	end
+
+	def delete_contact(id_delete)
+		@contacts.delete_if{|contact| contact.id == id_delete}
+	end
+
 
 	def display_attribute(display)
 		case display

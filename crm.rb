@@ -2,6 +2,7 @@
 #'display contact', 'diplay attribute', 'delete' and 'exit'.
 require_relative './contact.rb'
 require_relative './rolodex.rb'
+require 'pry'
 
 class CRM
 	attr_accessor :name
@@ -11,6 +12,7 @@ class CRM
 	end
 
 	def print_main_menu
+		# puts "\e[H\e[2J"
 		puts "[1] Add a contact"
 		puts "[2] Modify a contact"
 		puts "[3] Display all contacts"
@@ -28,7 +30,7 @@ class CRM
 			print_main_menu
 			input = gets.chomp.to_i
 			return if input == 7
-		choose_option(input)
+			choose_option(input)
 			end
 	end
 
@@ -48,10 +50,11 @@ class CRM
 	end
 
 	def add_contact
+		puts "\e[H\e[2J"
 		print "First name: "
-		first_name = gets.chomp
+		first_name = gets.chomp.capitalize
 		print "Last name: "
-		last_name = gets.chomp
+		last_name = gets.chomp.capitalize
 		print "Email: "
 		email = gets.chomp
 		print "Note: "
@@ -62,22 +65,38 @@ class CRM
 	end
 
 	def modify_contact
+		# loop do
+		puts "\e[H\e[2J"
+		display_all_contacts
 		puts "Type the contact id number you want to modify I.E. 1xxx: "
 		id = gets.chomp.to_i
 		@rolodex.find(id)
-		puts "What do you want to change about the contact?"
-		puts "I.E.: first name, last name, email or note."
-		change = gets.chomp.downcase	
-		@rolodex.modify_contact(change)
+		loop do
+			puts "\e[H\e[2J"
+			puts "What do you want to change about the contact?"
+			puts "(i.e: first name, last name, email or note)"
+			@change = gets.chomp.downcase
+			puts "\e[H\e[2J"
+			puts "You have chosen to change the #{@change}, is this correct? (Y/N)"
+			yes_or_no = gets.chomp.upcase
+			if yes_or_no == "Y" then break
+			else return
+			end
+		end
+		puts "\e[H\e[2J"
+		@rolodex.modify_contact(@change)
 	end
 
 	def display_all_contacts
 		@rolodex.contacts.each do |contact|
+			puts "\e[H\e[2J"
 			puts "#{contact.first_name}, #{contact.last_name}, #{contact.email} (#{contact.id})"
+			puts " "
 		end
 	end
 
 	def display_one_contact
+		puts "\e[H\e[2J"
 		puts "Type the id (ie. 1xxx) of the contact that you would like to display: "
 		id = gets.chomp.to_i
 		@rolodex.contacts.each do |contact|
@@ -93,21 +112,23 @@ class CRM
 	end
 
 	def display_attribute
+		puts "\e[H\e[2J"
 		puts "Please type the id number you want to display (ie. 1xxx): "
 		id = gets.chomp.to_i
 		@rolodex.find(id)
+		puts "\e[H\e[2J"
 		puts "What contact attribute would you like to display?"
 		puts "(i.e first name, last name, email or note)"
 		display = gets.chomp.downcase
 		@rolodex.display_attribute(display)
-		
 	end
 
 	def delete_contact
+		puts "\e[H\e[2J"
 		puts "Type the contact id number you want to delete I.E: 1xxx: "
 		id_delete = gets.chomp.to_i
 		@rolodex.delete_contact(id_delete)
-		puts "Contact #{id_delete}was deleted"
+		puts "Contact #{id_delete} was deleted"
 	end
 end
 
